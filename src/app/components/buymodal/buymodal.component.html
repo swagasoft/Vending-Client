@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+   <ion-item>
+    <ion-title>Buy Product</ion-title>
+    <ion-icon  (click)="closeModal()" slot="end" name="close"></ion-icon>
+   </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-row >
+    <ion-col size="12">
+      <ion-card class="p-2">
+        <ion-item>
+          <ion-card-title>{{product?.productName}} </ion-card-title>
+          <img [src]="product?.image_url" alt="" srcset="" width="150">
+          <div  slot="end" >{{product?.price | currency: product?.currencyTypeName }} </div>
+        </ion-item>
+        
+   
+      
+
+        <p style="margin-left: 30px;" class="ml-3">
+           <ion-chip color="primary" mode="ios" outline="true">
+          <ion-label class="ion-padding"> {{product?.quantity}} item available</ion-label>
+        </ion-chip> </p>
+
+
+        <ion-grid >
+          <ion-row>
+            <div>
+              <ion-text color="primary" class="ion-text-center">
+                <h5>Only the coin(s) below is acceptable.</h5>
+              </ion-text>
+            </div>
+            <ion-col size="12" >
+              <ion-label>Click on a coin for purchase</ion-label>
+              <form >
+                <ion-row>
+                  <ion-buttons collapse="true">
+                    <ion-button (click)="selectCoin(1)" class="ion-margin-3"  color="primary" mode="ios">
+                      <ion-chip   outline="true" color="primary">
+                        ¢ 1 coin
+                      </ion-chip>
+                    </ion-button>
+                    <ion-button (click)="selectCoin(5)" class="ion-margin-3"  color="primary" mode="ios" >
+                      
+                      <ion-chip   outline="true" color="primary">
+                        ¢ 5 coin
+                      </ion-chip>
+                    </ion-button>
+                    <ion-button (click)="selectCoin(10)" size="large" class="ion-margin-3"  color="primary" mode="ios">
+                      <ion-chip   outline="true" color="primary">
+                        ¢ 10 coin
+                      </ion-chip>
+                    </ion-button>
+                    <ion-button (click)="selectCoin(25)" class="ion-margin-3"  color="primary" mode="ios" >
+                      
+                      <ion-chip   outline="true" color="primary">
+                        ¢ 25 coin
+                      </ion-chip>
+                    </ion-button>
+               </ion-buttons>
+               <ion-buttons >
+                <ion-button (click)="selectCoin(50)"   color="primary" mode="ios" >
+                  
+                  <ion-chip   outline="true" color="primary">
+                    ¢ 50 coin
+                  </ion-chip>
+                </ion-button>
+               </ion-buttons>
+                </ion-row>
+            
+       
+                <ion-list>
+                  <ion-list-header>
+                    <ion-label *ngIf="purchaseCoinList.length > 0" >Selected coin</ion-label>
+                  </ion-list-header>
+                  <div *ngFor="let coin of purchaseCoinList" >
+                    <ion-item>
+                      <ion-chip  color="success" mode="ios" outline="true">
+                        <ion-label> {{coin.coinDenomination}}¢ coin</ion-label>
+                      </ion-chip>
+                      <div slot="end">No - coin:  {{coin.quantity}} </div>
+                      <ion-button slot="end" (click)="deleteCoin(coin)" >X</ion-button>
+                    </ion-item>
+      
+                  </div>
+                  
+                </ion-list>
+      
+      
+      
+      
+              </form>
+  
+      
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+       
+      
+          <ion-item color="light">
+            <label slot="start">Quantity</label>
+           <input type="number" placeholder="enter amount" 
+            [(ngModel)]="model.itemQuantity"  #amountValue>
+          </ion-item>
+
+        <ion-card>
+          <ion-card-title class="ion-text-center" *ngIf="changeList.length > 0" color="primary">Collect your change</ion-card-title>
+          <ion-list class="ion-margin ion-padding" *ngFor="let change of changeList, index as i">
+            <ion-item>
+              <ion-label> >>> {{change?.currencyTypeName}} {{change?.coinDenomination}} </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card>
+       
+        <ion-button  (click)="buyNowAction(product)" color="success" expand="block">
+          buy now
+        </ion-button>
+      </ion-card>
+
+    </ion-col>
+  </ion-row>
+</ion-content>

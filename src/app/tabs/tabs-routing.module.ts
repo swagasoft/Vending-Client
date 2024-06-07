@@ -1,5 +1,8 @@
+import { ManageCurrencyComponent } from './../components/manage-currency/manage-currency.component';
+import { ManagersComponent } from './../components/managers/managers.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UsersComponent } from '../components/users/users.component';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -8,27 +11,29 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'users',
+        component: UsersComponent
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'managers',
+        component: ManagersComponent
       },
+
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'currency',
+        component: ManageCurrencyComponent
       },
+
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/users',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/users',
     pathMatch: 'full'
   }
 ];
